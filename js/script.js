@@ -31,7 +31,9 @@ var index=0;
 var introPg= document.getElementById("intro");
 var queS= document.getElementById("quizSection");
 var options= document.getElementById("choices");
+var judgement= document.getElementById("judge");
 var endPg= document.getElementById("conclusion");
+var finalScore= document.getElementById("total");
 var trackTime= document.getElementById("time");
 var begin= document.querySelector("#startBtn");
 
@@ -58,7 +60,7 @@ function displayQuestion(){
 
 function checkAnswer(){
     if(this.value == questions[index].answer){
-        console.log("Correct");
+        judgement.innerText= "Correct";
     }
     else{
         time-=15;
@@ -66,8 +68,12 @@ function checkAnswer(){
             time= 0;
         }
         trackTime.innerText= time;
-        console.log("Wrong");
+        judgement.innerText= "Wrong";
     }
+    //debugger;
+    judgement.setAttribute("class", "judge");
+    setTimeout(function(){
+        judgement.setAttribute("class","Remove")}, 3000);
 
     if(++index == questions.length){
         endGame();
@@ -81,6 +87,7 @@ function endGame(){
     clearInterval(clock);
     document.getElementById("conclusion").removeAttribute("class");
     queS.setAttribute("class", "Remove");
+    finalScore.innerText= time;
 }
 
 function timer(){
