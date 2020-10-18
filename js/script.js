@@ -25,18 +25,22 @@ var questions= [{
 }
 ];
 
+var clock;
+var time= 90;
 var index=0;
 var introPg= document.getElementById("intro");
 var queS= document.getElementById("quizSection");
 var options= document.getElementById("choices");
 var endPg= document.getElementById("conclusion");
-var timer= document.getElementById("time");
+var trackTime= document.getElementById("time");
 var begin= document.querySelector("#startBtn");
 
 
 function startQuiz(){
     introPg.setAttribute("class", "Remove");
     queS.removeAttribute("class");
+    clock= setInterval(timer, 1000);
+    trackTime.innerText= time;
     displayQuestion();
 }
 function displayQuestion(){
@@ -44,7 +48,7 @@ function displayQuestion(){
     document.getElementById("print_question").innerText= initialProblem.que;
     options.innerHTML= "";
     for(let x=0; x<initialProblem.choices.length; x++){
-        var quizNode= document.createElement("button");
+        let quizNode= document.createElement("button");
         quizNode.setAttribute("value", initialProblem.choices[x]);
         quizNode.textContent= `${initialProblem.choices[x]}`;
         quizNode.onclick= checkAnswer;
@@ -57,6 +61,11 @@ function checkAnswer(){
         console.log("Correct");
     }
     else{
+        time-=15;
+        if(time<0){
+            time= 0;
+        }
+        trackTime.innerText= time;
         console.log("Wrong");
     }
 
@@ -69,7 +78,16 @@ function checkAnswer(){
 }
 
 function endGame(){
+    clearInterval(clock);
     document.getElementById("conclusion").removeAttribute("class");
     queS.setAttribute("class", "Remove");
+}
+
+function timer(){
+    time--;
+    trackTime.innerText= time;
+    if(time<=0){
+        endGame();
+    }
 }
 begin.addEventListener("click", startQuiz);
