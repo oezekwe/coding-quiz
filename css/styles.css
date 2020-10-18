@@ -1,4 +1,4 @@
-.display_content{
+#intro{
     margin: auto;
     text-align: center;
 }
@@ -9,4 +9,8 @@
 
 .trackScores{
     text-align: left;
+}
+
+.Remove{
+    display: none;
 }
