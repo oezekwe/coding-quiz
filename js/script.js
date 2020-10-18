@@ -40,23 +40,36 @@ function startQuiz(){
     displayQuestion();
 }
 function displayQuestion(){
-    let initialProblem= questions[index];
+    var initialProblem= questions[index];
     document.getElementById("print_question").innerText= initialProblem.que;
     options.innerHTML= "";
     for(let x=0; x<initialProblem.choices.length; x++){
-        let quizNode= document.createElement("button");
+        var quizNode= document.createElement("button");
         quizNode.setAttribute("value", initialProblem.choices[x]);
         quizNode.textContent= `${initialProblem.choices[x]}`;
-        quizNode.onclick= checkAnswer();
+        quizNode.onclick= checkAnswer;
         options.appendChild(quizNode);
     }
 }
 
 function checkAnswer(){
+    if(this.value == questions[index].answer){
+        console.log("Correct");
+    }
+    else{
+        console.log("Wrong");
+    }
 
+    if(++index == questions.length){
+        endGame();
+    }
+    else{
+        displayQuestion();
+    }
 }
 
 function endGame(){
-    
+    document.getElementById("conclusion").removeAttribute("class");
+    queS.setAttribute("class", "Remove");
 }
 begin.addEventListener("click", startQuiz);
