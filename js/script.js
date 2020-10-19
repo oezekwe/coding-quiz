@@ -33,9 +33,11 @@ var queS= document.getElementById("quizSection");
 var options= document.getElementById("choices");
 var judgement= document.getElementById("judge");
 var endPg= document.getElementById("conclusion");
+var dispScore= document.getElementById("display_scores");
 var finalScore= document.getElementById("total");
 var trackTime= document.getElementById("time");
 var begin= document.querySelector("#startBtn");
+var submitScore= document.getElementById("submit");
 
 
 function startQuiz(){
@@ -85,9 +87,36 @@ function checkAnswer(){
 
 function endGame(){
     clearInterval(clock);
-    document.getElementById("conclusion").removeAttribute("class");
+    endPg.removeAttribute("class");
     queS.setAttribute("class", "Remove");
     finalScore.innerText= time;
+}
+
+function saveScore(){
+    var charsInput= document.getElementById("initials").value;
+    if(charsInput != " "){
+        var scores= JSON.parse(localStorage.getItem("score")) || [];
+
+        var inputScore= {score: time, initials: charsInput};
+        scores.push(inputScore);
+        localStorage.setItem("score", JSON.stringify(scores));
+    }
+    loadScore();
+}
+
+function loadScore(){
+    endPg.setAttribute("class", "Remove");
+    dispScore.removeAttribute("class");
+    var savedScores= localStorage.getItem("score");
+    savedScores= JSON.parse(savedScores);
+    debugger;
+    for(let y=0; y<savedScores.length; y++){
+        console.log(savedScores[y].score);
+        let insertScoreEl= document.createElement("li");
+        let insertScoreNode= document.createTextNode(savedScores[y].initials + "- " + savedScores[y].score);
+        insertScoreEl.appendChild(insertScoreNode);
+        dispScore.appendChild(insertScoreEl);
+    }
 }
 
 function timer(){
@@ -98,3 +127,4 @@ function timer(){
     }
 }
 begin.addEventListener("click", startQuiz);
+submitScore.onclick= saveScore;
