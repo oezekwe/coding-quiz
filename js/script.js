@@ -53,6 +53,7 @@ function displayQuestion(){
     options.innerHTML= "";
     for(let x=0; x<initialProblem.choices.length; x++){
         let quizNode= document.createElement("button");
+        quizNode.setAttribute("class", "items");
         quizNode.setAttribute("value", initialProblem.choices[x]);
         quizNode.textContent= `${initialProblem.choices[x]}`;
         quizNode.onclick= checkAnswer;
@@ -72,7 +73,6 @@ function checkAnswer(){
         trackTime.innerText= time;
         judgement.innerText= "Wrong";
     }
-    //debugger;
     judgement.setAttribute("class", "judge");
     setTimeout(function(){
         judgement.setAttribute("class","Remove")}, 3000);
@@ -109,13 +109,11 @@ function loadScore(){
     dispScore.removeAttribute("class");
     var savedScores= localStorage.getItem("score");
     savedScores= JSON.parse(savedScores);
-    debugger;
     for(let y=0; y<savedScores.length; y++){
-        console.log(savedScores[y].score);
         let insertScoreEl= document.createElement("li");
         let insertScoreNode= document.createTextNode(savedScores[y].initials + "- " + savedScores[y].score);
         insertScoreEl.appendChild(insertScoreNode);
-        dispScore.appendChild(insertScoreEl);
+        dispScore.append(insertScoreEl);
     }
 }
 

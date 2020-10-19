@@ -1,14 +1,21 @@
 #intro{
+    margin-top: 30px;
+    text-align: center;
+}
+
+#quizSection{
     margin: auto;
     text-align: center;
 }
 
-.countdown{
-    text-align: right;
+.items{
+    margin: 20px 0 0 400px;
+    display: block;
 }
 
-.trackScores{
-    text-align: left;
+.countdown{
+    margin: -20px 150px 0 0;
+    float: right;
 }
 
 .Remove{
